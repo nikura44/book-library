@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zorth.mapper.ReadingProgressMapper">
+    <resultMap id="BaseResultMap" type="org.zorth.pojo.ReadingProgress">
+        <id column="progress_id" property="progressId" jdbcType="INTEGER"/>
+        <result column="book_id" property="bookId" jdbcType="INTEGER"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="pages_read" property="pagesRead" jdbcType="INTEGER"/>
+        <result column="duration_minutes" property="durationMinutes" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        progress_id, book_id, start_time, end_time, pages_read, duration_minutes
+    </sql>
+
+    <select id="getProgressById" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ReadingProgress
+        WHERE progress_id = #{progressId}
+    </select>
+
+    <insert id="insertProgress" parameterType="org.zorth.pojo.ReadingProgress">
+        INSERT INTO ReadingProgress (book_id, start_time, end_time, pages_read, duration_minutes)
+        VALUES (#{bookId}, #{startTime}, #{endTime}, #{pagesRead}, #{durationMinutes})
+    </insert>
+
+    <update id="updateProgress" parameterType="org.zorth.pojo.ReadingProgress">
+        UPDATE ReadingProgress
+        SET book_id = #{bookId}, start_time = #{startTime}, end_time = #{endTime},
+            pages_read = #{pagesRead}, duration_minutes = #{durationMinutes}
+        WHERE progress_id = #{progressId}
+    </update>
+
+    <delete id="deleteProgress" parameterType="int">
+        DELETE FROM ReadingProgress WHERE progress_id = #{progressId}
+    </delete>
+</mapper>

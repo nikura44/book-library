@@ -1,0 +1,11 @@
+# 数据库连接配置
+spring:
+  datasource:
+    url: jdbc:mysql://-:3306/book_library
+    username: -
+    password: -
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8492
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml

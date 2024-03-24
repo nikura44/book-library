@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 可选：配置数据库连接池等 -->
+
+    <!-- 指定要扫描的 Mapper 文件路径 -->
+    <mappers>
+        <mapper resource="mybatis/mapper/BookMapper.xml"/>
+        <mapper resource="mybatis/mapper/ReadingProgressMapper.xml"/>
+        <!-- 如果你有其他的 Mapper 文件，也可以在这里继续添加 -->
+    </mappers>
+</configuration>

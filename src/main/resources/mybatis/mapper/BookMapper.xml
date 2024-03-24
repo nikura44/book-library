@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zorth.mapper.BookMapper">
+    <resultMap id="BaseResultMap" type="org.zorth.pojo.Book">
+        <id column="book_id" property="bookId" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="cover_url" property="coverUrl" jdbcType="VARCHAR"/>
+        <result column="total_pages" property="totalPages" jdbcType="INTEGER"/>
+        <result column="total_reading_duration_minutes" property="totalReadingDurationMinutes" jdbcType="INTEGER"/>
+        <result column="recent_reading_time" property="recentReadingTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        book_id, title, author, cover_url, total_pages, total_reading_duration_minutes, recent_reading_time
+    </sql>
+
+    <select id="getAllBooks" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM Books
+    </select>
+
+    <select id="getBookById" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM Books
+        WHERE book_id = #{bookId}
+    </select>
+
+    <insert id="insertBook" parameterType="org.zorth.pojo.Book">
+        INSERT INTO Books (title, author, cover_url, total_pages, total_reading_duration_minutes, recent_reading_time)
+        VALUES (#{title}, #{author}, #{coverUrl}, #{totalPages}, #{totalReadingDurationMinutes}, #{recentReadingTime})
+    </insert>
+
+    <update id="updateBook" parameterType="org.zorth.pojo.Book">
+        UPDATE Books
+        SET title = #{title}, author = #{author}, cover_url = #{coverUrl}, total_pages = #{totalPages},
+            total_reading_duration_minutes = #{totalReadingDurationMinutes}, recent_reading_time = #{recentReadingTime}
+        WHERE book_id = #{bookId}
+    </update>
+
+    <delete id="deleteBook" parameterType="int">
+        DELETE FROM Books WHERE book_id = #{bookId}
+    </delete>
+</mapper>
