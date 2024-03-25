@@ -19,7 +19,9 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM Books
+        ORDER BY recent_reading_time DESC
     </select>
+
 
     <select id="getBookById" parameterType="int" resultMap="BaseResultMap">
         SELECT
@@ -35,10 +37,17 @@
 
     <update id="updateBook" parameterType="org.zorth.pojo.Book">
         UPDATE Books
-        SET title = #{title}, author = #{author}, cover_url = #{coverUrl}, total_pages = #{totalPages},
-            total_reading_duration_minutes = #{totalReadingDurationMinutes}, recent_reading_time = #{recentReadingTime}
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="author != null">author = #{author},</if>
+            <if test="coverUrl != null">cover_url = #{coverUrl},</if>
+            <if test="totalPages != null">total_pages = #{totalPages},</if>
+            <if test="totalReadingDurationMinutes != null">total_reading_duration_minutes = #{totalReadingDurationMinutes},</if>
+            <if test="recentReadingTime != null">recent_reading_time = #{recentReadingTime}</if>
+        </set>
         WHERE book_id = #{bookId}
     </update>
+
 
     <delete id="deleteBook" parameterType="int">
         DELETE FROM Books WHERE book_id = #{bookId}
